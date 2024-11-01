@@ -51,16 +51,22 @@ public class GamesController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<Game>? Get() 
+    public List<Game>? Get() 
     {
         return games;
     }
-    /*
+    
         [HttpDelete]
-        public IEnumerable<Game> Delete( int id)
+        public List<Game>? Delete( int id)
         {
-  // write code that delets the game with the id sent to the API then returns a list of games
+            if (games == null) return null;
+    
+            var gameToDelete = games.FirstOrDefault(g => g.id == id);
+            if (gameToDelete != null) games.Remove(gameToDelete);
+            
+            return games;
         }
+        /*
                 [HttpPost]
         public IEnumerable<Game>  AddGame( Game game)
         {
