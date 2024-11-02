@@ -12,34 +12,35 @@ public class GamesController : ControllerBase
 // demo has this bellow methods  I cant imagine why thoe order would matter though keep it in mind
 
    public class Game{
-        public int id { get; set; }
-        public string? teamOneName { get; set; }
-        public string? teamTwoName { get; set; }
-        public int winner { get; set; } 
+        public int Id { get; set; }
+        public string? TeamOneName { get; set; }
+        public string? TeamTwoName { get; set; }
+        public int Winner { get; set; } 
 
-   } 
-    List<Game> PopulateGames(){
-        return new List<Game>
-        {
+   }
+
+    static List<Game> PopulateGames(){
+        return
+        [
             new Game{
-               id = 1,
-               teamOneName="London",
-               teamTwoName="Cardif",
-               winner =1  
+               Id = 1,
+               TeamOneName="London",
+               TeamTwoName="Cardif",
+               Winner =1  
             },
              new Game{
-               id = 2,
-               teamOneName="Leeds",
-               teamTwoName="London",
-               winner =2  
+               Id = 2,
+               TeamOneName="Leeds",
+               TeamTwoName="London",
+               Winner =2  
             },
              new Game{
-               id = 3,
-               teamOneName="London",
-               teamTwoName="Manchester",
-               winner =1  
+               Id = 3,
+               TeamOneName="London",
+               TeamTwoName="Manchester",
+               Winner =1  
             },
-        };
+        ];
     }
 
     private readonly ILogger<GamesController> _logger;
@@ -61,15 +62,16 @@ public class GamesController : ControllerBase
         {
             if (games == null) return null;
     
-            var gameToDelete = games.FirstOrDefault(g => g.id == id);
+            var gameToDelete = games.FirstOrDefault(g => g.Id == id);
             if (gameToDelete != null) games.Remove(gameToDelete);
             
             return games;
         }
-        /*
                 [HttpPost]
-        public IEnumerable<Game>  AddGame( Game game)
+        public IEnumerable<Game>? AddGame( Game game)
         {
-// write code that adds the game posted to this route then displays the list of games
-        }*/
+            if (games == null) return null;
+            games.Add(game);
+            return games;
+        }
 }
